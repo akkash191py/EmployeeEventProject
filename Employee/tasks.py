@@ -1,12 +1,12 @@
 from datetime import date
 from django.core.mail import send_mail
-from celery import task
+from celery import shared_task
 from Employee.models import Employee
 from django.conf import settings
 from django.db.models import Q
 
 
-@task
+@shared_task
 def send_birthday_anniversary_wishes():
     today = date.today()
     # users = Employee.objects.filter(
