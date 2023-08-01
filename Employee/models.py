@@ -7,6 +7,12 @@ GENDER_CHOICES = (
     ('Other', 'Other'),
 )
 
+Event_CHOICES = (
+    ('Birthday', 'Birthday'),
+    ('Work Anniversary', 'Work Anniversary'),
+    ('No Events', 'No Events'),
+)
+
 # Create Employee models here.
 class Employee(models.Model):
     first_name = models.CharField('First Name', max_length=50, blank = False, null = False)
@@ -26,3 +32,15 @@ class Employee(models.Model):
 
     def __str__(self):
         return str(self.first_name + "" + self.last_name)
+
+class EventDetails(models.Model):
+    empId = models.ForeignKey(Employee, on_delete=models.CASCADE, blank=False, null=False)
+    event_type = models.CharField("Event Type", max_length=200, choices=Event_CHOICES, blank=False, null=False)
+    wishes = models.TextField()
+    eventDate = models.DateField()
+
+    class Meta:
+        verbose_name_plural = "Event Details"
+
+    def __str__(self):
+        return str(self.empId.first_name + self.empId.last_name + "-" +self.event_type)

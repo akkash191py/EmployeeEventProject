@@ -142,7 +142,7 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_BEAT_SCHEDULE = {
     'send-birthday-anniversary-wishes': {
-        'task': 'Employee.task.send_birthday_anniversary_wishes',
+        'task': 'Employee.tasks.send_birthday_anniversary_wishes',
         'schedule': crontab(hour=0, minute=0),  # Run daily at midnight
     },
 }

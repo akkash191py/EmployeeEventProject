@@ -7,5 +7,6 @@ urlpatterns = [
 
     # Employee App Urls
     path("employee/profile/details/", views.EmployeeRegistrationAPIview.as_view()),
+    path("employee/event/details/", views.EmployeeEventWishesAPIview.as_view()),
     
 ]
