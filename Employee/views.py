@@ -52,14 +52,15 @@ class EmployeeEventWishesAPIview(APIView):
         jsonData = EventSerialzer(eventObj, many=True)
         eventData = jsonData.data
         return Response({"status": "success",
-                         "message":"Basic Profile fetched successfully",
+                         "message":"Event fetched successfully",
                          "data":eventData},status=200)
     
 
     def post(self, request, *args, **kwargs):
 
-        today = datetime.now().strftime("%d-%m")
-        year_now = datetime.now().strftime("%Y")
+        # today = datetime.now().strftime("%d-%m")
+        today = datetime.date.today()
+        # year_now = datetime.now().strftime("%Y")
 
         upcoming_birthdays = Employee.objects.filter(
             DOB__month=today.month,
@@ -72,7 +73,7 @@ class EmployeeEventWishesAPIview(APIView):
 
         
         for user_profile in upcoming_birthdays:
-            birthDayWishes = "Dear" + user_profile.first_name, + "Wishing you a great birthday and a memorable year, From all of us."
+            birthDayWishes = "Dear" + user_profile.first_name, + ", Wishing you a great birthday and a memorable year, From all of us."
             event = EventDetails(empId=user_profile.id, event_type = "Birthday", wishes = birthDayWishes, eventDate = datetime.date)
             event.save()
             send_birthday_anniversary_wishes()
@@ -80,7 +81,7 @@ class EmployeeEventWishesAPIview(APIView):
 
         
         for user_event in upcoming_anniversary:
-            birthDayWishes = "Dear" + user_event.first_name, + "Congratulations on your work anniversary! It’s a special day to celebrate your great work and dedication to your job over the years."
+            birthDayWishes = "Dear" + user_event.first_name + ", Congratulations on your work anniversary! It’s a special day to celebrate your great work and dedication to your job over the years."
             eventAnniversay = EventDetails(empId=user_event.id, event_type = "Work Anniversary", wishes = birthDayWishes, eventDate = datetime.date)
             eventAnniversay.save()
             send_birthday_anniversary_wishes()

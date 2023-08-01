@@ -36,7 +36,7 @@ class Employee(models.Model):
 class EventDetails(models.Model):
     empId = models.ForeignKey(Employee, on_delete=models.CASCADE, blank=False, null=False)
     event_type = models.CharField("Event Type", max_length=200, choices=Event_CHOICES, blank=False, null=False)
-    wishes = models.TextField()
+    wishes = models.TextField(default="No Events", null=True, blank=True)
     eventDate = models.DateField()
 
     class Meta:
